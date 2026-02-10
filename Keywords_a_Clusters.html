@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>De Keywords a Clusters: Guía Paso a Paso</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+        }
+        
+        .slide {
+            display: none;
+            min-height: 100vh;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        .slide.active {
+            display: flex;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(251, 191, 36, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            border-color: rgba(251, 191, 36, 0.3);
+            transform: translateY(-4px);
+        }
+        
+        .step-box {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%);
+            border: 2px solid rgba(251, 191, 36, 0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 1rem 0;
+        }
+        
+        .visual-box {
+            background: #1e293b;
+            border: 3px solid #fbbf24;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .keyword-tag {
+            display: inline-block;
+            background: #3b82f6;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            margin: 0.25rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        
+        .pillar-tag {
+            background: #eab308;
+            color: #1e293b;
+        }
+        
+        .support-tag {
+            background: #3b82f6;
+        }
+        
+        .arrow {
+            font-size: 3rem;
+            color: #fbbf24;
+            text-align: center;
+            margin: 1rem 0;
+        }
+        
+        .progress-bar {
+            height: 4px;
+            background: rgba(251, 191, 36, 0.2);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #fbbf24, #f59e0b);
+            transition: width 0.3s ease;
+        }
+        
+        .example-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .highlight {
+            background: rgba(251, 191, 36, 0.2);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressBar"></div>
+    </div>
+
+    <!-- Slide Counter -->
+    <div class="fixed top-6 right-6 text-gray-400 text-sm z-50" id="slideCounter">
+        1 / 12
+    </div>
+
+    <div class="relative">
+        
+        <!-- SLIDE 1: PORTADA -->
+        <div class="slide active flex-col items-center justify-center text-center px-12 py-20" id="slide1">
+            <div class="max-w-5xl mx-auto">
+                <div class="mb-8">
+                    <div class="text-8xl mb-6">🗺️</div>
+                </div>
+                <h1 class="text-7xl font-bold mb-6 gradient-text">
+                    De Keywords a Clusters
+                </h1>
+                <h2 class="text-4xl font-semibold mb-8 text-white">
+                    El Proceso Completo, Paso a Paso
+                </h2>
+                <div class="w-32 h-1 bg-yellow-400 mx-auto mb-8"></div>
+                <p class="text-2xl text-gray-300 mb-4">
+                    Para alumnos que quieren ENTENDER, no memorizar
+                </p>
+                <p class="text-xl text-gray-400">
+                    Espai Barcelona • Marketing Digital
+                </p>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: EL PROBLEMA -->
+        <div class="slide flex-col items-center justify-center px-12 py-20" id="slide2">
+            <div class="max-w-6xl mx-auto w-full">
+                <h2 class="text-5xl font-bold text-white mb-12 text-center">
+                    😰 El Problema: <span class="gradient-text">Demasiadas Keywords</span>
+                </h2>
+                
+                <div class="visual-box mb-8">
+                    <h3 class="text-2xl font-semibold text-yellow-400 mb-6 text-center">Imagina que has hecho keyword research y tienes esto:</h3>
+                    <div class="text-center">
+                        <span class="keyword-tag">cómo preparar café</span>
+                        <span class="keyword-tag">prensa francesa</span>
+                        <span class="keyword-tag">café espresso casa</span>
+                        <span class="keyword-tag">moler café</span>
+                        <span class="keyword-tag">café v60</span>
+                        <span class="keyword-tag">temperatura agua café</span>
+                        <span class="keyword-tag">mejor molinillo café</span>
+                        <span class="keyword-tag">cold brew receta</span>
+                        <span class="keyword-tag">café filtrado</span>
+                        <span class="keyword-tag">proporción café agua</span>
+                        <span class="keyword-tag">granos café frescos</span>
+                        <span class="keyword-tag">cappuccino casa</span>
+                        <span class="keyword-tag">café chemex</span>
+                        <span class="keyword-tag">molienda café</span>
+                        <span class="keyword-tag">aeropress guía</span>
+                        <span class="keyword-tag">café moka italiana</span>
+                        <span class="keyword-tag">latte art</span>
+                        <span class="keyword-tag">café frío</span>
+                        <span class="keyword-tag">pour over</span>
+                        <span class="keyword-tag">french press tiempo</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-8">
+                    <div class="card p-8 rounded-2xl">
+                        <div class="text-5xl mb-4 text-center">❌</div>
+                        <h3 class="text-2xl font-semibold text-red-400 mb-4 text-center">Lo Que NO Debes Hacer</h3>
+                        <ul class="text-gray-300 space-y-3">
+                            <li>• Crear 1 artículo por cada keyword</li>
+                            <li>• 20 artículos cortos y superficiales</li>
+                            <li>• Contenido repetitivo y canibalización</li>
+                            <li>• Google no sabe cuál rankear</li>
+                            <li>• Pierdes tiempo y dinero</li>
+                        </ul>
+                    </div>
+
+                    <div class="card p-8 rounded-2xl">
+                        <div class="text-5xl mb-4 text-center">✅</div>
+                        <h3 class="text-2xl font-semibold text-green-400 mb-4 text-center">Lo Que SÍ Debes Hacer</h3>
+                        <ul class="text-gray-300 space-y-3">
+                            <li>• Agrupar keywords relacionadas</li>
+                            <li>• Crear contenido profundo y completo</li>
+                            <li>• Estructura clara y organizada</li>
+                            <li>• Google entiende tu autoridad</li>
+                            <li>• Mejores rankings con menos esfuerzo</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mt-8 bg-yellow-900/30 border-2 border-yellow-400/50 rounded-xl p-6 text-center">
+                    <p class="text-2xl text-yellow-100">
+                        💡 <strong>La solución:</strong> Organizar tus keywords en <span class="highlight">CLUSTERS</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: QUÉ ES UN CLUSTER -->
+        <div class="slide flex-col items-center justify-center px-12 py-20" id="slide3">
+            <div class="max-w-6xl mx-auto w-full">
+                <h2 class="text-5xl font-bold text-white mb-12 text-center">
+                    🤔 ¿Qué es un <span class="gradient-text">Cluster</span>?
+                </h2>
+                
+                <div class="step-box mb-8">
+                    <h3 class="text-3xl font-semibold text-yellow-400 mb-4 text-center">Definición Simple:</h3>
+                    <p class="text-2xl text-white text-center leading-relaxed">
+                        Un cluster es un <span class="highlight">grupo de páginas web relacionadas</span> sobre el mismo tema general,<br>
+                        organizadas de forma jerárquica y conectadas con enlaces internos.
+                    </p>
+                </div>
+
+                <div class="visual-box">
+                    <h3 class="text-2xl font-semibold text-yellow-400 mb-6 text-center">Analogía: Como un Libro</h3>
+                    
+                    <div class="grid grid-cols-3 gap-6 text-center">
+                        <div class="bg-blue-900/30 rounded-lg p-6">
+                            <div class="text-5xl mb-3">📚</div>
+                            <h4 class="text-xl font-semibold text-yellow-400 mb-2">1 Página Pillar</h4>
+                            <p class="text-gray-300 text-sm">= Índice del libro</p>
+                            <p class="text-gray-400 text-xs mt-2">Visión general del tema</p>
+                        </div>
+
+                        <div class="bg-blue-900/30 rounded-lg p-6">
+                            <div class="text-5xl mb-3">📄</div>
+                            <h4 class="text-xl font-semibold text-blue-400 mb-2">4-8 Páginas de Soporte</h4>
+                            <p class="text-gray-300 text-sm">= Capítulos del libro</p>
+                            <p class="text-gray-400 text-xs mt-2">Cada uno profundiza en un subtema</p>
+                        </div>
+
+                        <div class="bg-blue-900/30 rounded-lg p-6">
+                            <div class="text-5xl mb-3">🔗</div>
+                            <h4 class="text-xl font-semibold text-green-400 mb-2">Enlaces Internos</h4>
+                            <p class="text-gray-300 text-sm">= Referencias entre capítulos</p>
+                            <p class="text-gray-400 text-xs mt-2">"Ver capítulo 3 para más detalles"</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 grid grid-cols-2 gap-6">
+                    <div class="bg-green-900/20 border-2 border-green-500/50 rounded-xl p-6">
+                        <h4 class="text-xl font-semibold text-green-400 mb-3">✅ Ventajas de los Clusters:</h4>
+                        <ul class="text-gray-300 space-y-2 text-sm">
+                            <li>• Google ve que eres <strong>experto</strong> en el tema</li>
+                            <li>• Todas las páginas se ayudan mutuamente a rankear</li>
+                            <li>• Mejor experiencia de usuario (encuentra todo relacionado)</li>
+                            <li>• Evitas canibalización (cada página tiene su propósito)</li>
+                            <li>• Más eficiente: menos páginas, mejor contenido</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-blue-900/20 border-2 border-blue-500/50 rounded-xl p-6">
+                        <h4 class="text-xl font-semibold text-blue-400 mb-3">📊 Resultados Típicos:</h4>
+                        <ul class="text-gray-300 space-y-2 text-sm">
+                            <li>• <strong>Mes 1-3:</strong> Páginas de soporte empiezan a rankear</li>
+                            <li>• <strong>Mes 4-6:</strong> Pillar gana autoridad, rankings mejoran</li>
+                            <li>• <strong>Mes 6-12:</strong> Todo el cluster en Top 10</li>
+                            <li>• <strong>Año 2:</strong> Dominas el tema en tu nicho</li>
+                            <li>• <strong>Tráfico:</strong> 5-10x más que artículos sueltos</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: EL PROCESO COMPLETO -->
+        <div class="slide flex-col items-center justify-center px-12 py-20" id="slide4">
+            <div class="max-w-6xl mx-auto w-full">
+                <h2 class="text-5xl font-bold text-white mb-12 text-center">
+                    🗺️ El Proceso Completo: <span class="gradient-text">5 Pasos</span>
+                </h2>
+                
+                <div class="space-y-6">
+                    <div class="step-box">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center text-2xl font-bold text-gray-900 mr-4">1</div>
+                            <h3 class="text-2xl font-semibold text-white">Keyword Research</h3>
+                        </div>
+                        <p class="text-gray-300 ml-16">Buscar y recopilar todas las keywords relacionadas con tu tema</p>
+                    </div>
+
+                    <div class="arrow">↓</div>
+
+                    <div class="step-box">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center text-2xl font-bold text-gray-900 mr-4">2</div>
+                            <h3 class="text-2xl font-semibold text-white">Agrupar por Intención</h3>
+                        </div>
+                        <p class="text-gray-300 ml-16">Juntar keywords que hablan del mismo subtema o que el usuario busca con la misma intención</p>
+                    </div>
+
+                    <div class="arrow">↓</div>
+
+                    <div class="step-box">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center text-2xl font-bold text-gray-900 mr-4">3</div>
+                            <h3 class="text-2xl font-semibold text-white">Identificar Pillar y Soportes</h3>
+                        </div>
+                        <p class="text-gray-300 ml-16">Decidir qué tema general será la página pillar y qué subtemas serán páginas de soporte</p>
+                    </div>
+
+                    <div class="arrow">↓</div>
+
+                    <div class="step-box">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center text-2xl font-bold text-gray-900 mr-4">4</div>
+                            <h3 class="text-2xl font-semibold text-white">Crear Estructura de Enlaces</h3>
+                        </div>
+                        <p class="text-gray-300 ml-16">Planificar cómo las páginas se enlazarán entre sí (pillar → soportes, soportes → pillar, soportes ↔ soportes)</p>
+                    </div>
+
+                    <div class="arrow">↓</div>
+
+                    <div class="step-box">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center text-2xl font-bold text-gray-900 mr-4">5</div>
+                            <h3 class="text-2xl font-semibold text-white">Escribir Contenido</h3>
+                        </div>
+                        <p class="text-gray-300 ml-16">Crear cada página con su contenido específico y sus enlaces internos</p>
+                    </div>
+                </div>
+
+                <div class="mt-8 bg-blue-900/30 border-2 border-blue-400/50 rounded-xl p-6 text-center">
+                    <p class="text-xl text-blue-100">
+                        📚 <strong>Próximos slides:</strong> Veremos cada paso en detalle con un ejemplo práctico
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: PASO 1 - KEYWORD RESEARCH -->
+        <div class="slide flex-col items-center justify-center px-12 py-20" id="slide5">
+            <div class="max-w-6xl mx-auto w-full">
+                <div class="flex items-center mb-8">
+                    <div class="w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center text-3xl font-bold text-gray-900 mr-6">1</div>
+                    <h2 class="text-5xl font-bold text-white">
+                        <span class="gradient-text">Paso 1:</span> Keyword Research
+                    </h2>
+                </div>
+                
+                <div class="step-box mb-8">
+                    <h3 class="text-2xl font-semibold text-yellow-400 mb-4">🎯 Objetivo:</h3>
+                    <p class="text-xl text-white">Recopilar TODAS las keywords relacionadas con tu tema, sin filtrar todavía</p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-8 mb-8">
+                    <div class="card p-6 rounded-xl">
+                        <h4 class="text-xl font-semibold text-yellow-400 mb-4">🛠️ Herramientas a Usar:</h4>
+                        <ul class="text-gray-300 space-y-2">
+                            <li>• <strong>Ubersuggest</strong> (gratis)</li>
+                            <li>• <strong>Google Keyword Planner</strong> (gratis)</li>
+                            <li>• <strong>AnswerThePublic</strong> (gratis)</li>
+                            <li>• <strong>Google Search Console</strong> (si ya tienes web)</li>
+                            <li>• <strong>ChatGPT/Claude</strong> para brainstorming</li>
+                        </ul>
+                    </div>
+
+                    <div class="card p-6 rounded-xl">
+                        <h4 class="text-xl font-semibold text-yellow-400 mb-4">📋 Qué Anotar:</h4>
+                        <ul class="text-gray-300 space-y-2">
+                            <li>• <strong>Keyword</strong> exacta</li>
+                            <li>• <strong>Volumen</strong> de búsquedas/mes</li>
+                            <li>• <strong>Dificultad</strong> SEO (0-100)</li>
+                            <li>• <strong>Intención</strong> (informacional, transaccional, navegacional)</li>
+                            <li>• <strong>Anotaciones</strong> (ideas, observaciones)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="visual-box">
+                    <h3 class="text-2xl font-semibold text-yellow-400 mb-6">📊 Ejemplo: Keyword Research para "Preparar Café"</h3>
+                    
+                    <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+                        <table class="w-full text-sm text-gray-300">
+                            <thead>
+                                <tr class="border-b border-gray-700 text-yellow-400">
+                                    <th class="text-left p-2">Keyword</th>
+                                    <th class="text-center p-2">Vol/mes</th>
+                                    <th class="text-center p-2">Dificultad</th>
+                                    <th class="text-left p-2">Intención</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-gray-800">
+                                    <td class="p-2">cómo preparar café</td>
+                                    <td class="text-center p-2">1,200</td>
+                                    <td class="text-center p-2">35</td>
+                                    <td class="p-2">Informacional</td>
+                                </tr>
+                                <tr class="border-b border-gray-800">
+                                    <td class="p-2">café prensa francesa</td>
+                                    <td class="text-center p-2">480</td>
+                                    <td class="text-center p-2">28</td>
+                                    <td class="p-2">Informacional</td>
+                                </tr>
+                                <tr class="border-b border-gray-800">
+                                    <td class="p-2">cómo hacer espresso</td>
+                                    <td class="text-center p-2">650</td>
+                                    <td class="text-center p-2">42</td>
+                                    <td class="p-2">Informacional</td>
+                                </tr>
+                                <tr class="border-b border-gray-800">
+                                    <td class="p-2">french press tiempo</td>
+                                    <td class="text-center p-2">210</td>
+                                    <td class="text-center p-2">22</td>
+                                    <td class="p-2">Informacional</td>
+                                </tr>
+                                <tr class="border-b border-gray-800">
+                                    <td class="p-2">v60 café guía</td>
+                                    <td class="text-center p-2">320</td>
+                                    <td class="text-center p-2">30</td>
+                                    <td class="p-2">Informacional</td>
+                                </tr>
+                                <tr class="border-b border-gray-800">
+                                    <td class="p-2">cold brew receta</td>
+                                    <td class="text-center p-2">890</td>
+                                    <td class="text-center p-2">25</td>
+                                    <td class="p-2">Informacional</td>
+                                </tr>
+                                <tr class="border-b border-gray-800">
+                                    <td class="p-2">temperatura agua café</td>
+                                    <td class="text-center p-2">180</td>
+                                    <td class="text-center p-2">18</td>
+                                    <td class="p-2">Informacional</td>
+                                </tr>
+                                <tr class="border-b border-gray-800">
+                                    <td class="p-2">proporción café agua</td>
+                                    <td class="text-center p-2">150</td>
+                                    <td class="text-center p-2">15</td>
+                                    <td class="p-2">Informacional</td>
+                                </tr>
+                                <tr class="border-b border-gray-800">
+                                    <td class="p-2">molienda café prensa</td>
+                                    <td class="text-center p-2">120</td>
+                                    <td class="text-center p-2">20</td>
+                                    <td class="p-2">Informacional</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2">comprar prensa francesa</td>
+                                    <td class="text-center p-2">420</td>
+                                    <td class="text-center p-2">38</td>
+                                    <td class="p-2">Transaccional</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p class="text-gray-400 mt-4 text-center text-sm">
+                        💡 Esto es solo un ejemplo. En un keyword research real tendrías 50-200 keywords
+                    </p>
+                </div>
+
+                <div class="mt-6 bg-yellow-900/30 border-2 border-yellow-400/50 rounded-xl p-6">
+                    <p class="text-lg text-yellow-100 text-center">
+                        <strong>Truco:</strong> Empieza con 1 keyword principal → Usa herramientas para encontrar relacionadas → Expande desde ahí
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: PASO 2 - AGRUPAR POR INTENCIÓN -->
+        <div class="slide flex-col items-center justify-center px-12 py-20" id="slide6">
+            <div class="max-w-6xl mx-auto w-full">
+                <div class="flex items-center mb-8">
+                    <div class="w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center text-3xl font-bold text-gray-900 mr-6">2</div>
+                    <h2 class="text-5xl font-bold text-white">
+                        <span class="gradient-text">Paso 2:</span> Agrupar por Intención
+                    </h2>
+                </div>
+                
+                <div class="step-box mb-8">
+                    <h3 class="text-2xl font-semibold text-yellow-400 mb-4">🎯 Objetivo:</h3>
+                    <p class="text-xl text-white mb-4">Juntar keywords que hablan del <span class="highlight">mismo subtema</span> o que responden a la <span class="highlight">misma pregunta</span></p>
+                    <p class="text-lg text-gray-300">
+                        <strong>Pregunta clave:</strong> Si alguien busca esta keyword, ¿qué contenido espera encontrar? ¿Es el mismo que para otra keyword?
+                    </p>
+                </div>
+
+                <div class="visual-box mb-8">
+                    <h3 class="text-2xl font-semibold text-yellow-400 mb-6 text-center">📦 Ejemplo: Agrupando Keywords de Café</h3>
+                    
+                    <div class="grid grid-cols-3 gap-6">
+                        <div class="bg-blue-900/40 rounded-lg p-6 border-2 border-blue-400">
+                            <h4 class="text-xl font-semibold text-blue-300 mb-4 text-center">Grupo 1: Prensa Francesa</h4>
+                            <div class="space-y-2">
+                                <div class="bg-blue-800/50 rounded px-3 py-2 text-sm text-gray-200">café prensa francesa</div>
+                                <div class="bg-blue-800/50 rounded px-3 py-2 text-sm text-gray-200">french press tiempo</div>
+                                <div class="bg-blue-800/50 rounded px-3 py-2 text-sm text-gray-200">molienda café prensa</div>
+                                <div class="bg-blue-800/50 rounded px-3 py-2 text-sm text-gray-200">french press pasos</div>
+                                <div class="bg-blue-800/50 rounded px-3 py-2 text-sm text-gray-200">prensa francesa 4 minutos</div>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-4 text-center">
+                                ✓ Todas hablan del método de prensa francesa
+                            </p>
+                        </div>
+
+                        <div class="bg-purple-900/40 rounded-lg p-6 border-2 border-purple-400">
+                            <h4 class="text-xl font-semibold text-purple-300 mb-4 text-center">Grupo 2: Espresso</h4>
+                            <div class="space-y-2">
+                                <div class="bg-purple-800/50 rounded px-3 py-2 text-sm text-gray-200">cómo hacer espresso</div>
+                                <div class="bg-purple-800/50 rounded px-3 py-2 text-sm text-gray-200">espresso perfecto casa</div>
+                                <div class="bg-purple-800/50 rounded px-3 py-2 text-sm text-gray-200">tamping espresso</div>
+                                <div class="bg-purple-800/50 rounded px-3 py-2 text-sm text-gray-200">tiempo extracción espresso</div>
+                                <div class="bg-purple-800/50 rounded px-3 py-2 text-sm text-gray-200">crema espresso</div>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-4 text-center">
+                                ✓ Todas hablan de preparar espresso
+                            </p>
+                        </div>
+
+                        <div class="bg-green-900/40 rounded-lg p-6 border-2 border-green-400">
+                            <h4 class="text-xl font-semibold text-green-300 mb-4 text-center">Grupo 3: Cold Brew</h4>
+                            <div class="space-y-2">
+                                <div class="bg-green-800/50 rounded px-3 py-2 text-sm text-gray-200">cold brew receta</div>
+                                <div class="bg-green-800/50 rounded px-3 py-2 text-sm text-gray-200">café frío preparación</div>
+                                <div class="bg-green-800/50 rounded px-3 py-2 text-sm text-gray-200">cold brew 24 horas</div>
+                                <div class="bg-green-800/50 rounded px-3 py-2 text-sm text-gray-200">proporción cold brew</div>
+                                <div class="bg-green-800/50 rounded px-3 py-2 text-sm text-gray-200">cold brew filtrar</div>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-4 text-center">
+                                ✓ Todas hablan de café en frío
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="card p-6 rounded-xl">
+                        <h4 class="text-xl font-semibold text-green-400 mb-3">✅ Buenos Grupos:</h4>
+                        <ul class="text-gray-300 space-y-2 text-sm">
+                            <li>• Keywords con la <strong>misma intención</strong> de búsqueda</li>
+                            <li>• Responden a la <strong>misma pregunta</strong> principal</li>
+                            <li>• Se pueden cubrir en el <strong>mismo artículo</strong></li>
+                            <li>• El usuario busca <strong>el mismo tipo de información</strong></li>
+                        </ul>
+                        <div class="mt-4 bg-green-900/20 rounded p-3 text-xs text-gray-300">
+                            <strong>Ejemplo:</strong> "café prensa francesa", "french press pasos", "prensa francesa tiempo" → Mismo grupo (todas buscan guía de prensa francesa)
+                        </div>
+                    </div>
+
+                    <div class="card p-6 rounded-xl">
+                        <h4 class="text-xl font-semibold text-red-400 mb-3">❌ Errores Comunes:</h4>
+                        <ul class="text-gray-300 space-y-2 text-sm">
+                            <li>• Agrupar por palabra similar pero <strong>intención diferente</strong></li>
+                            <li>• Mezclar temas generales con específicos</li>
+                            <li>• Grupos demasiado amplios (imposible cubrir bien)</li>
+                            <li>• Grupos demasiado pequeños (solo 1-2 keywords)</li>
+                        </ul>
+                        <div class="mt-4 bg-red-900/20 rounded p-3 text-xs text-gray-300">
+                            <strong>Ejemplo MAL:</strong> "preparar café" + "molinillo café" + "comprar café" → Intenciones diferentes (tutorial, comparativa, compra)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 bg-yellow-900/30 border-2 border-yellow-400/50 rounded-xl p-6">
+                    <p class="text-lg text-yellow-100 text-center">
+                        💡 <strong>Truco:</strong> Si puedes responder ambas keywords en el mismo artículo sin que parezca forzado → Mismo grupo
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: PASO 3 - PILLAR Y SOPORTES -->
+        <div class="slide flex-col items-center justify-center px-12 py-20" id="slide7">
+            <div class="max-w-6xl mx-auto w-full">
+                <div class="flex items-center mb-8">
+                    <div class="w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center text-3xl font-bold text-gray-900 mr-6">3</div>
+                    <h2 class="text-5xl font-bold text-white">
+                        <span class="gradient-text">Paso 3:</span> Identificar Pillar y Soportes
+                    </h2>
+                </div>
+                
+                <div class="step-box mb-8">
+                    <h3 class="text-2xl font-semibold text-yellow-400 mb-4">🎯 Objetivo:</h3>
+                    <p class="text-xl text-white">Decidir qué será tu <span class="highlight">1 página pillar</span> (visión general) y qué serán tus <span class="highlight">4-8 páginas de soporte</span> (profundización)</p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-8 mb-8">
+                    <div class="visual-box">
+                        <h4 class="text-2xl font-semibold text-yellow-400 mb-4 text-center">👑 Página Pillar</h4>
+                        <div class="bg-yellow-900/20 rounded-lg p-6">
+                            <h5 class="text-lg font-semibold text-yellow-300 mb-3">Características:</h5>
+                            <ul class="text-gray-300 space-y-2 text-sm">
+                                <li>• <strong>Tema AMPLIO</strong> y general</li>
+                                <li>• <strong>2,000-3,000 palabras</strong></li>
+                                <li>• <strong>Visión general</strong> del tema</li>
+                                <li>• Introduce todos los subtemas</li>
+                                <li>• Enlaza a todas las páginas de soporte</li>
+                                <li>• Es la "guía completa"</li>
+                            </ul>
+                        </div>
+                        <div class="mt-4 bg-yellow-800/30 rounded-lg p-4">
+                            <p class="text-sm text-yellow-200 text-center font-semibold">
+                                Ejemplo: "Cómo Preparar Café en Casa: Guía Completa"
+                            </p>
+                            <p class="text-xs text-gray-400 text-center mt-2">
+                                Cubre todos los métodos superficialmente
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="visual-box">
+                        <h4 class="text-2xl font-semibold text-blue-400 mb-4 text-center">📄 Páginas de Soporte</h4>
+                        <div class="bg-blue-900/20 rounded-lg p-6">
+                            <h5 class="text-lg font-semibold text-blue-300 mb-3">Características:</h5>
+                            <ul class="text-gray-300 space-y-2 text-sm">
+                                <li>• <strong>Tema ESPECÍFICO</strong> (un subtema del pillar)</li>
+                                <li>• <strong>1,000-1,500 palabras</strong></li>
+                                <li>• <strong>Profundiza</strong> en un método/aspecto</li>
+                                <li>• Tutorial paso a paso</li>
+                                <li>• Enlaza de vuelta al pillar</li>
+                                <li>• Enlaza a soportes relacionados</li>
+                            </ul>
+                        </div>
+                        <div class="mt-4 bg-blue-800/30 rounded-lg p-4">
+                            <p class="text-sm text-blue-200 text-center font-semibold">
+                                Ejemplo: "Cómo Hacer Café con Prensa Francesa"
+                            </p>
+                            <p class="text-xs text-gray-400 text-center mt-2">
+                                Solo prensa francesa, en detalle
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="visual-box">
+                    <h3 class="text-2xl font-semibold text-yellow-400 mb-6 text-center">🌳 Estructura del Cluster: Preparar Café</h3>
+                    
+                    <div class="flex flex-col items-center">
+                        <!-- Pillar -->
+                        <div class="bg-yellow-500 text-gray-900 rounded-xl p-6 font-bold text-center mb-4 w-3/4">
+                            <div class="text-lg mb-1">👑 PILLAR</div>
+                            <div class="text-xl">Cómo Preparar Café en Casa</div>
+                            <div class="text-sm font-normal mt-2">Visión general de todos los métodos</div>
+                        </div>
+
+                        <div class="text-5xl text-yellow-400 mb-4">↓</div>
+
+                        <!-- Soportes -->
+                        <div class="grid grid-cols-4 gap-4 w-full">
+                            <div class="bg-blue-600 text-white rounded-lg p-4 text-center">
+                                <div class="text-sm mb-1">📄 SOPORTE 1</div>
+                                <div class="font-semibold text-sm">Prensa Francesa</div>
+                            </div>
+                            <div class="bg-blue-600 text-white rounded-lg p-4 text-center">
+                                <div class="text-sm mb-1">📄 SOPORTE 2</div>
+                                <div class="font-semibold text-sm">Espresso</div>
+                            </div>
+                            <div class="bg-blue-600 text-white rounded-lg p-4 text-center">
+                                <div class="text-sm mb-1">📄 SOPORTE 3</div>
+                                <div class="font-semibold text-sm">V60</div>
+                            </div>
+                            <div class="bg-blue-600 text-white rounded-lg p-4 text-center">
+                                <div class="text-sm mb-1">📄 SOPORTE 4</div>
+                                <div class="font-semibold text-sm">Cold Brew</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 bg-gray-800 rounded-lg p-4 text-center">
+                        <p class="text-gray-300 text-sm">
+                            <strong>Regla de oro:</strong> El pillar menciona todos los subtemas superficialmente.<br>
+                            Cada soporte profundiza en UNO de esos subtemas.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mt-6 bg-yellow-900/30 border-2 border-yellow-400/50 rounded-xl p-6">
+                    <p class="text-lg text-yellow-100 text-center">
+                        💡 <strong>Pregunta clave:</strong> ¿Este subtema necesita su propio artículo detallado? → Soporte. ¿Es solo una mención? → Queda en el pillar.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: PASO 4 - ESTRUCTURA DE ENLACES -->
+        <div class="slide flex-col items-center justify-center px-12 py-20" id="slide8">
+            <div class="max-w-6xl mx-auto w-full">
+                <div class="flex items-center mb-8">
+                    <div class="w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center text-3xl font-bold text-gray-900 mr-6">4</div>
+                    <h2 class="text-5xl font-bold text-white">
+                        <span class="gradient-text">Paso 4:</span> Estructura de Enlaces
+                    </h2>
+                </div>
+                
+                <div class="step-box mb-8">
+                    <h3 class="text-2xl font-semibold text-yellow-400 mb-4">🎯 Objetivo:</h3>
+                    <p class="text-xl text-white">Conectar todas las páginas con <span class="highlight">enlaces internos estratégicos</span> para que Google entienda la relación entre ellas</p>
+                </div>
+
+                <div class="visual-box mb-8">
+                    <h3 class="text-2xl font-semibold text-yellow-400 mb-6 text-center">🔗 Las 3 Reglas de Enlazado</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-blue-900/30 rounded-lg p-6">
+                            <div class="flex items-start">
+                                <div class="text-4xl mr-4">1️⃣</div>
+                                <div class="flex-1">
+                                    <h4 class="text-xl font-semibold text-blue-300 mb-2">Pillar → Todos los Soportes</h4>
+                                    <p class="text-gray-300 text-sm mb-3">El pillar debe enlazar a TODAS las páginas de soporte al menos una vez</p>
+                                    <div class="bg-blue-950/50 rounded p-3 text-xs text-gray-400">
+                                        <strong>Ejemplo:</strong> "Si quieres profundizar en el método de prensa francesa, consulta nuestra <span class="text-blue-300">guía completa de prensa francesa</span>."
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-green-900/30 rounded-lg p-6">
+                            <div class="flex items-start">
+                                <div class="text-4xl mr-4">2️⃣</div>
+                                <div class="flex-1">
+                                    <h4 class="text-xl font-semibold text-green-300 mb-2">Soportes → Pillar</h4>
+                                    <p class="text-gray-300 text-sm mb-3">Cada soporte debe enlazar de vuelta al pillar (normalmente en la introducción)</p>
+                                    <div class="bg-green-950/50 rounded p-3 text-xs text-gray-400">
+                                        <strong>Ejemplo:</strong> "Este artículo es parte de nuestra <span class="text-green-300">guía completa de preparación de café en casa</span>, donde comparamos todos los métodos."
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-purple-900/30 rounded-lg p-6">
+                            <div class="flex items-start">
+                                <div class="text-4xl mr-4">3️⃣</div>
+                                <div class="flex-1">
+                                    <h4 class="text-xl font-semibold text-purple-300 mb-2">Soportes ↔ Soportes Relacionados</h4>
+                                    <p class="text-gray-300 text-sm mb-3">Enlaces entre soportes cuando hay relación lógica (2-3 enlaces por soporte)</p>
+                                    <div class="bg-purple-950/50 rounded p-3 text-xs text-gray-400">
+                                        <strong>Ejemplo:</strong> En "Prensa Francesa": "Si prefieres café en frío, prueba nuestro <span class="text-purple-300">tutorial de cold brew</span>."
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="visual-box">
+                    <h3 class="text-2xl font-semibold text-yellow-400 mb-6 text-center">📐 Diagrama Visual de Enlaces</h3>
+                    
+                    <div class="relative" style="min-height: 400px;">
+                        <!-- Pillar -->
+                        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 bg-yellow-500 text-gray-900 rounded-xl p-4 font-bold text-center z-10" style="width: 250px;">
+                            <div class="text-sm">👑 PILLAR</div>
+                            <div>Preparar Café</div>
+                        </div>
+
+                        <!-- Flechas hacia abajo -->
+                        <svg class="absolute top-20 left-1/2 transform -translate-x-1/2" width="600" height="120">
+                            <!-- Líneas desde pillar a soportes -->
+                            <line x1="300" y1="0" x2="75" y2="120" stroke="#fbbf24" stroke-width="3" marker-end="url(#arrowhead)"/>
+                            <line x1="300" y1="0" x2="210" y2="120" stroke="#fbbf24" stroke-width="3" marker-end="url(#arrowhead)"/>
+                            <line x1="300" y1="0" x2="390" y2="120" stroke="#fbbf24" stroke-width="3" marker-end="url(#arrowhead)"/>
+                            <line x1="300" y1="0" x2="525" y2="120" stroke="#fbbf24" stroke-width="3" marker-end="url(#arrowhead)"/>
+                            <defs>
+                                <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                    <polygon points="0 0, 10 3, 0 6" fill="#fbbf24" />
+                                </marker>
+                            </defs>
+                        </svg>
+
+                        <!-- Soportes -->
+                        <div class="absolute top-40 left-0 grid grid-cols-4 gap-4" style="width: 100%;">
+                            <div class="bg-blue-600 text-white rounded-lg p-3 text-center text-sm">
+                                <div class="mb-1">📄</div>
+                                <div>Prensa<br>Francesa</div>
+                            </div>
+                            <div class="bg-blue-600 text-white rounded-lg p-3 text-center text-sm">
+                                <div class="mb-1">📄</div>
+                                <div>Espresso</div>
+                            </div>
+                            <div class="bg-blue-600 text-white rounded-lg p-3 text-center text-sm">
+                                <div class="mb-1">📄</div>
+                                <div>V60</div>
+                            </div>
+                            <div class="bg-blue-600 text-white rounded-lg p-3 text-center text-sm">
+                                <div class="mb-1">📄</div>
+                                <div>Cold<br>Brew</div>
+                            </div>
+                        </div>
+
+                        <!-- Flechas hacia arriba (retorno) -->
+                        <svg class="absolute top-32 left-1/2 transform -translate-x-1/2" width="600" height="30">
+                            <line x1="75" y1="30" x2="280" y2="0" stroke="#22c55e" stroke-width="2" stroke-dasharray="5,5"/>
+                            <line x1="210" y1="30" x2="290" y2="0" stroke="#22c55e" stroke-width="2" stroke-dasharray="5,5"/>
+                            <line x1="390" y1="30" x2="310" y2="0" stroke="#22c55e" stroke-width="2" stroke-dasharray="5,5"/>
+                            <line x1="525" y1="30" x2="320" y2="0" stroke="#22c55e" stroke-width="2" stroke-dasharray="5,5"/>
+                        </svg>
+
+                        <!-- Flechas entre soportes -->
+                        <svg class="absolute top-52 left-0" width="100%" height="40">
+                            <line x1="160" y1="20" x2="240" y2="20" stroke="#a78bfa" stroke-width="2" marker-end="url(#arrowpurple)"/>
+                            <line x1="520" y1="20" x2="440" y2="20" stroke="#a78bfa" stroke-width="2" marker-end="url(#arrowpurple)"/>
+                            <defs>
+                                <marker id="arrowpurple" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                    <polygon points="0 0, 10 3, 0 6" fill="#a78bfa" />
+                                </marker>
+                            </defs>
+                        </svg>
+                    </div>
+
+                    <div class="mt-24 grid grid-cols-3 gap-4">
+                        <div class="bg-yellow-900/30 rounded p-3 text-center">
+                            <div class="text-yellow-400 font-semibold mb-1">Amarillo sólido ↓</div>
+                            <div class="text-xs text-gray-300">Pillar → Soportes</div>
+                        </div>
+                        <div class="bg-green-900/30 rounded p-3 text-center">
+                            <div class="text-green-400 font-semibold mb-1">Verde punteado ↑</div>
+                            <div class="text-xs text-gray-300">Soportes → Pillar</div>
+                        </div>
+                        <div class="bg-purple-900/30 rounded p-3 text-center">
+                            <div class="text-purple-400 font-semibold mb-1">Morado ↔</div>
+                            <div class="text-xs text-gray-300">Entre soportes</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 bg-yellow-900/30 border-2 border-yellow-400/50 rounded-xl p-6">
+                    <p class="text-lg text-yellow-100 text-center">
+                        💡 <strong>Resultado:</strong> Google ve una red de contenido interconectado y te reconoce como experto en el tema
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: PASO 5 - ESCRIBIR CONTENIDO -->
+        <div class="slide flex-col items-center justify-center px-12 py-20" id="slide9">
+            <div class="max-w-6xl mx-auto w-full">
+                <div class="flex items-center mb-8">
+                    <div class="w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center text-3xl font-bold text-gray-900 mr-6">5</div>
+                    <h2 class="text-5xl font-bold text-white">
+                        <span class="gradient-text">Paso 5:</span> Escribir el Contenido
+                    </h2>
+                </div>
+                
+                <div class="step-box mb-8">
+                    <h3 class="text-2xl font-semibold text-yellow-400 mb-4">🎯 Objetivo:</h3>
+                    <p class="text-xl text-white">Crear cada página siguiendo la estructura planificada, con calidad y enlaces internos</p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-8 mb-8">
+                    <div class="visual-box">
+                        <h4 class="text-xl font-semibold text-yellow-400 mb-4">📝 Orden de Creación Recomendado:</h4>
+                        <div class="space-y-3">
+                            <div class="bg-blue-900/30 rounded-lg p-4 flex items-center">
+                                <div class="w-10 h-10 bg-yellow-400 rounded-full flex items-center justify-center text-gray-900 font-bold mr-4">1</div>
+                                <div>
+                                    <div class="font-semibold text-white">Pillar primero</div>
+                                    <div class="text-xs text-gray-400">Te da la visión global</div>
+                                </div>
+                            </div>
+                            <div class="bg-blue-900/30 rounded-lg p-4 flex items-center">
+                                <div class="w-10 h-10 bg-blue-400 rounded-full flex items-center justify-center text-gray-900 font-bold mr-4">2</div>
+                                <div>
+                                    <div class="font-semibold text-white">Soportes más importantes</div>
+                                    <div class="text-xs text-gray-400">Los de más volumen/demanda</div>
+                                </div>
+                            </div>
+                            <div class="bg-blue-900/30 rounded-lg p-4 flex items-center">
+                                <div class="w-10 h-10 bg-blue-400 rounded-full flex items-center justify-center text-gray-900 font-bold mr-4">3</div>
+                                <div>
+                                    <div class="font-semibold text-white">Soportes secundarios</div>
+                                    <div class="text-xs text-gray-400">Completan el cluster</div>
+                                </div>
+                            </div>
+                            <div class="bg-blue-900/30 rounded-lg p-4 flex items-center">
+                                <div class="w-10 h-10 bg-green-400 rounded-full flex items-center justify-center text-gray-900 font-bold mr-4">4</div>
+                                <div>
+                                    <div class="font-semibold text-white">Añadir enlaces internos</div>
+                                    <div class="text-xs text-gray-400">Conecta todo al final</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="visual-box">
+                        <h4 class="text-xl font-semibold text-yellow-400 mb-4">📏 Longitudes Recomendadas:</h4>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-white font-semibold">Pillar</span>
+                                    <span class="text-yellow-400">2,000-3,000 palabras</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-2">
+                                    <div class="bg-yellow-400 h-2 rounded-full" style="width: 100%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-white font-semibold">Soporte</span>
+                                    <span class="text-blue-400">1,000-1,500 palabras</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-2">
+                                    <div class="bg-blue-400 h-2 rounded-full" style="width: 60%"></div>
+                                </div>
+                            </div>
+
+                            <p class="text-xs text-gray-400 mt-4">
+                                * Estas son guías, no reglas estrictas. Lo importante es cubrir el tema completamente.
+                            </p>
+                        </div>
+
+                        <div class="mt-6 bg-gray-800 rounded-lg p-4">
+                            <h5 class="text-sm font-semibold text-yellow-400 mb-2">⚠️ Importante:</h5>
+                            <p class="text-xs text-gray-300">
+                                No escribas por cantidad de palabras. Escribe hasta que el tema esté <strong>completamente cubierto</strong>. 
+                                Si necesitas 3,000 palabras para un soporte, úsalas.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="visual-box">
+                    <h3 class="text-2xl font-semibold text-yellow-400 mb-6 text-center">✅ Checklist al Escribir Cada Página</h3>
+                    
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="text-lg font-semibold text-blue-300 mb-3">📋 Contenido:</h4>
+                            <ul class="space-y-2 text-sm text-gray-300">
+                                <li class="flex items-start">
+                                    <span class="text-green-400 mr-2">✓</span>
+                                    <span>Responde la pregunta principal en los primeros 150 palabras</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-400 mr-2">✓</span>
+                                    <span>Estructura clara con H2s cada 300-400 palabras</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-400 mr-2">✓</span>
+                                    <span>Ejemplos concretos y datos específicos</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-400 mr-2">✓</span>
+                                    <span>Demuestra experiencia (E-E-A-T)</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-400 mr-2">✓</span>
+                                    <span>Cubre el tema completamente</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 class="text-lg font-semibold text-blue-300 mb-3">🔗 Enlaces:</h4>
+                            <ul class="space-y-2 text-sm text-gray-300">
+                                <li class="flex items-start">
+                                    <span class="text-green-400 mr-2">✓</span>
+                                    <span><strong>En Pillar:</strong> Enlaza a todos los soportes</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-400 mr-2">✓</span>
+                                    <span><strong>En Soportes:</strong> Enlaza al pillar en la intro</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-400 mr-2">✓</span>
+                                    <span>2-3 enlaces a otros soportes relacionados</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-400 mr-2">✓</span>
+                                    <span>Anchor text descriptivo (no "clic aquí")</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-400 mr-2">✓</span>
+                                    <span>Enlaces contextuales y naturales</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 bg-yellow-900/30 border-2 border-yellow-400/50 rounded-xl p-6">
+                    <p class="text-lg text-yellow-100 text-center">
+                        💡 <strong>Truco:</strong> Escribe primero todo el contenido. Añade los enlaces internos al final cuando todas las páginas estén listas.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: EJEMPLO VISUAL COMPLETO -->
+        <div class="slide flex-col items-center justify-center px-12 py-20" id="slide10">
+            <div class="max-w-6xl mx-auto w-full">
+                <h2 class="text-5xl font-bold text-white mb-12 text-center">
+                    🎨 Ejemplo Visual: <span class="gradient-text">Cluster Completo</span>
+                </h2>
+                
+                <div class="visual-box">
+                    <h3 class="text-2xl font-semibold text-yellow-400 mb-6 text-center">De 50 Keywords a 1 Cluster Organizado</h3>
+                    
+                    <div class="grid grid-cols-2 gap-8">
+                        <!-- Antes -->
+                        <div>
+                            <h4 class="text-xl font-semibold text-red-400 mb-4 text-center">❌ ANTES: Caos</h4>
+                            <div class="bg-red-900/20 border-2 border-red-500/50 rounded-lg p-6 min-h-96">
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">cómo preparar café</span>
+                                    <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">prensa francesa</span>
+                                    <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">espresso casa</span>
+                                    <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">v60 guía</span>
+                                    <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">cold brew</span>
+                                    <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">moler café</span>
+                                    <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">french press tiempo</span>
+                                    <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">café filtrado</span>
+                                    <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">temperatura agua</span>
+                                    <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">cappuccino</span>
+                                    <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">tamping</span>
+                                    <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">pour over</span>
+                                    <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">cold brew 24h</span>
+                                    <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">chemex</span>
+                                    <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">aeropress</span>
+                                    <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">latte art</span>
+                                </div>
+                                <p class="text-center text-gray-500 mt-8 text-sm">
+                                    50 keywords sueltas<br>Sin estructura<br>¿Por dónde empezar?
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Después -->
+                        <div>
+                            <h4 class="text-xl font-semibold text-green-400 mb-4 text-center">✅ DESPUÉS: Estructura Clara</h4>
+                            <div class="bg-green-900/20 border-2 border-green-500/50 rounded-lg p-6 min-h-96">
+                                <!-- Pillar -->
+                                <div class="bg-yellow-600 rounded-lg p-3 mb-3">
+                                    <div class="text-gray-900 font-bold text-sm text-center">👑 PILLAR (2,500 palabras)</div>
+                                    <div class="text-gray-900 text-xs text-center mt-1">Cómo Preparar Café en Casa</div>
+                                    <div class="text-gray-800 text-xs text-center mt-1">15 keywords</div>
+                                </div>
+
+                                <!-- Soportes -->
+                                <div class="space-y-2">
+                                    <div class="bg-blue-600 rounded-lg p-2 pl-6">
+                                        <div class="text-white font-semibold text-xs">📄 Prensa Francesa (1,200 palabras)</div>
+                                        <div class="text-blue-200 text-xs">10 keywords</div>
+                                    </div>
+                                    <div class="bg-blue-600 rounded-lg p-2 pl-6">
+                                        <div class="text-white font-semibold text-xs">📄 Espresso Perfecto (1,400 palabras)</div>
+                                        <div class="text-blue-200 text-xs">12 keywords</div>
+                                    </div>
+                                    <div class="bg-blue-600 rounded-lg p-2 pl-6">
+                                        <div class="text-white font-semibold text-xs">📄 V60 / Pour Over (1,300 palabras)</div>
+                                        <div class="text-blue-200 text-xs">8 keywords</div>
+                                    </div>
+                                    <div class="bg-blue-600 rounded-lg p-2 pl-6">
+                                        <div class="text-white font-semibold text-xs">📄 Cold Brew (1,100 palabras)</div>
+                                        <div class="text-blue-200 text-xs">5 keywords</div>
+                                    </div>
+                                </div>
+
+                                <p class="text-center text-green-300 mt-6 text-sm font-semibold">
+                                    1 Pillar + 4 Soportes = 5 páginas<br>
+                                    50 keywords organizadas<br>
+                                    ~7,500 palabras totales
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 grid grid-cols-3 gap-6">
+                    <div class="card p-6 rounded-xl text-center">
+                        <div class="text-4xl mb-3">📈</div>
+                        <div class="text-3xl font-bold text-yellow-400 mb-2">5x</div>
+                        <div class="text-sm text-gray-300">Más tráfico que artículos sueltos</div>
+                    </div>
+
+                    <div class="card p-6 rounded-xl text-center">
+                        <div class="text-4xl mb-3">⏱️</div>
+                        <div class="text-3xl font-bold text-blue-400 mb-2">60%</div>
+                        <div class="text-sm text-gray-300">Menos tiempo que 50 artículos individuales</div>
+                    </div>
+
+                    <div class="card p-6 rounded-xl text-center">
+                        <div class="text-4xl mb-3">🎯</div>
+                        <div class="text-3xl font-bold text-green-400 mb-2">Top 3</div>
+                        <div class="text-sm text-gray-300">Posición promedio en 6-12 meses</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: ERRORES COMUNES -->
+        <div class="slide flex-col items-center justify-center px-12 py-20" id="slide11">
+            <div class="max-w-6xl mx-auto w-full">
+                <h2 class="text-5xl font-bold text-white mb-12 text-center">
+                    ⚠️ <span class="gradient-text">Errores Comunes</span> a Evitar
+                </h2>
+                
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="bg-red-900/20 border-2 border-red-500/50 rounded-xl p-6">
+                        <h3 class="text-xl font-semibold text-red-400 mb-4 flex items-center">
+                            <span class="text-3xl mr-3">❌</span>
+                            Error #1: Pillar Demasiado Superficial
+                        </h3>
+                        <p class="text-gray-300 text-sm mb-3">
+                            El pillar de solo 800 palabras que apenas menciona los subtemas.
+                        </p>
+                        <div class="bg-red-950/30 rounded p-3 text-xs text-gray-400">
+                            <strong>Solución:</strong> El pillar debe ser tu artículo MÁS completo. Mínimo 2,000 palabras con visión general detallada.
+                        </div>
+                    </div>
+
+                    <div class="bg-red-900/20 border-2 border-red-500/50 rounded-xl p-6">
+                        <h3 class="text-xl font-semibold text-red-400 mb-4 flex items-center">
+                            <span class="text-3xl mr-3">❌</span>
+                            Error #2: Demasiados Soportes
+                        </h3>
+                        <p class="text-gray-300 text-sm mb-3">
+                            Crear 20 páginas de soporte en un solo cluster.
+                        </p>
+                        <div class="bg-red-950/30 rounded p-3 text-xs text-gray-400">
+                            <strong>Solución:</strong> 4-8 soportes es lo ideal. Si tienes más temas, crea múltiples clusters.
+                        </div>
+                    </div>
+
+                    <div class="bg-red-900/20 border-2 border-red-500/50 rounded-xl p-6">
+                        <h3 class="text-xl font-semibold text-red-400 mb-4 flex items-center">
+                            <span class="text-3xl mr-3">❌</span>
+                            Error #3: No Enlazar Correctamente
+                        </h3>
+                        <p class="text-gray-300 text-sm mb-3">
+                            Olvidar los enlaces internos o enlazar solo en una dirección.
+                        </p>
+                        <div class="bg-red-950/30 rounded p-3 text-xs text-gray-400">
+                            <strong>Solución:</strong> SIEMPRE bidireccional: Pillar ↔ Soportes. No olvides enlaces entre soportes relacionados.
+                        </div>
+                    </div>
+
+                    <div class="bg-red-900/20 border-2 border-red-500/50 rounded-xl p-6">
+                        <h3 class="text-xl font-semibold text-red-400 mb-4 flex items-center">
+                            <span class="text-3xl mr-3">❌</span>
+                            Error #4: Contenido Repetitivo
+                        </h3>
+                        <p class="text-gray-300 text-sm mb-3">
+                            Copiar y pegar información entre pillar y soportes.
+                        </p>
+                        <div class="bg-red-950/30 rounded p-3 text-xs text-gray-400">
+                            <strong>Solución:</strong> Pillar = visión general. Soporte = profundización específica. Sin repetir textos.
+                        </div>
+                    </div>
+
+                    <div class="bg-red-900/20 border-2 border-red-500/50 rounded-xl p-6">
+                        <h3 class="text-xl font-semibold text-red-400 mb-4 flex items-center">
+                            <span class="text-3xl mr-3">❌</span>
+                            Error #5: Agrupar Mal las Keywords
+                        </h3>
+                        <p class="text-gray-300 text-sm mb-3">
+                            Juntar keywords con intenciones completamente diferentes.
+                        </p>
+                        <div class="bg-red-950/30 rounded p-3 text-xs text-gray-400">
+                            <strong>Solución:</strong> Pregúntate: "¿El usuario espera el mismo tipo de contenido?" Si no, son grupos separados.
+                        </div>
+                    </div>
+
+                    <div class="bg-red-900/20 border-2 border-red-500/50 rounded-xl p-6">
+                        <h3 class="text-xl font-semibold text-red-400 mb-4 flex items-center">
+                            <span class="text-3xl mr-3">❌</span>
+                            Error #6: Publicar Todo de Golpe
+                        </h3>
+                        <p class="text-gray-300 text-sm mb-3">
+                            Subir las 5 páginas el mismo día y esperar resultados inmediatos.
+                        </p>
+                        <div class="bg-red-950/30 rounded p-3 text-xs text-gray-400">
+                            <strong>Solución:</strong> Publica espaciado: Pillar primero, luego 1 soporte por semana. Paciencia: resultados en 3-6 meses.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 bg-yellow-900/30 border-2 border-yellow-400/50 rounded-xl p-6">
+                    <h4 class="text-2xl font-semibold text-yellow-400 mb-4 text-center">💡 Regla de Oro:</h4>
+                    <p class="text-xl text-white text-center">
+                        Los clusters son sobre <span class="highlight">organización inteligente</span>, no sobre escribir más contenido.<br>
+                        5 páginas bien estructuradas > 20 páginas desorganizadas
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 12: RESUMEN Y PRÓXIMOS PASOS -->
+        <div class="slide flex-col items-center justify-center px-12 py-20" id="slide12">
+            <div class="max-w-6xl mx-auto w-full">
+                <h2 class="text-5xl font-bold text-white mb-12 text-center">
+                    🎓 <span class="gradient-text">Resumen</span> y Próximos Pasos
+                </h2>
+                
+                <div class="visual-box mb-8">
+                    <h3 class="text-2xl font-semibold text-yellow-400 mb-6 text-center">📋 Los 5 Pasos (Repaso)</h3>
+                    
+                    <div class="grid grid-cols-5 gap-4 text-center">
+                        <div class="bg-blue-900/30 rounded-lg p-4">
+                            <div class="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center text-2xl font-bold text-gray-900 mx-auto mb-3">1</div>
+                            <div class="text-white font-semibold text-sm mb-2">Keyword Research</div>
+                            <div class="text-gray-400 text-xs">Recopilar todas las keywords</div>
+                        </div>
+
+                        <div class="bg-blue-900/30 rounded-lg p-4">
+                            <div class="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center text-2xl font-bold text-gray-900 mx-auto mb-3">2</div>
+                            <div class="text-white font-semibold text-sm mb-2">Agrupar</div>
+                            <div class="text-gray-400 text-xs">Por intención y subtema</div>
+                        </div>
+
+                        <div class="bg-blue-900/30 rounded-lg p-4">
+                            <div class="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center text-2xl font-bold text-gray-900 mx-auto mb-3">3</div>
+                            <div class="text-white font-semibold text-sm mb-2">Identificar</div>
+                            <div class="text-gray-400 text-xs">Pillar y Soportes</div>
+                        </div>
+
+                        <div class="bg-blue-900/30 rounded-lg p-4">
+                            <div class="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center text-2xl font-bold text-gray-900 mx-auto mb-3">4</div>
+                            <div class="text-white font-semibold text-sm mb-2">Estructura</div>
+                            <div class="text-gray-400 text-xs">Planificar enlaces</div>
+                        </div>
+
+                        <div class="bg-blue-900/30 rounded-lg p-4">
+                            <div class="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center text-2xl font-bold text-gray-900 mx-auto mb-3">5</div>
+                            <div class="text-white font-semibold text-sm mb-2">Escribir</div>
+                            <div class="text-gray-400 text-xs">Crear contenido</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-3 gap-6 mb-8">
+                    <div class="card p-6 rounded-xl">
+                        <h4 class="text-xl font-semibold text-yellow-400 mb-4">🎯 Qué Has Aprendido:</h4>
+                        <ul class="text-gray-300 space-y-2 text-sm">
+                            <li>✓ Qué es un cluster y por qué importa</li>
+                            <li>✓ Cómo pasar de keywords a contenido organizado</li>
+                            <li>✓ Diferencia entre pillar y soportes</li>
+                            <li>✓ Cómo estructurar enlaces internos</li>
+                            <li>✓ Errores comunes a evitar</li>
+                        </ul>
+                    </div>
+
+                    <div class="card p-6 rounded-xl">
+                        <h4 class="text-xl font-semibold text-blue-400 mb-4">📚 Próximos Pasos:</h4>
+                        <ul class="text-gray-300 space-y-2 text-sm">
+                            <li>1. Escoge un tema para tu primer cluster</li>
+                            <li>2. Haz keyword research (50-100 keywords)</li>
+                            <li>3. Agrúpalas en 4-6 grupos</li>
+                            <li>4. Dibuja tu estructura en papel</li>
+                            <li>5. Empieza por el pillar</li>
+                        </ul>
+                    </div>
+
+                    <div class="card p-6 rounded-xl">
+                        <h4 class="text-xl font-semibold text-green-400 mb-4">⏰ Timeline Realista:</h4>
+                        <ul class="text-gray-300 space-y-2 text-sm">
+                            <li>• <strong>Semana 1:</strong> Research y planificación</li>
+                            <li>• <strong>Semana 2-3:</strong> Escribir pillar</li>
+                            <li>• <strong>Semana 4-8:</strong> Escribir soportes (1/semana)</li>
+                            <li>• <strong>Mes 3-6:</strong> Primeros resultados visibles</li>
+                            <li>• <strong>Mes 6-12:</strong> Rankings consolidados</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-2xl p-8 text-gray-900 text-center">
+                    <h3 class="text-3xl font-bold mb-4">🎉 ¡Estás Listo para Crear Tu Primer Cluster!</h3>
+                    <p class="text-xl mb-6">
+                        No es magia, es método. Los clusters funcionan porque Google premia la <strong>organización y profundidad</strong>.
+                    </p>
+                    <div class="grid grid-cols-3 gap-4 max-w-3xl mx-auto">
+                        <div class="bg-white/20 rounded-lg p-4">
+                            <div class="text-4xl mb-2">📈</div>
+                            <div class="font-bold">Más Tráfico</div>
+                        </div>
+                        <div class="bg-white/20 rounded-lg p-4">
+                            <div class="text-4xl mb-2">⏱️</div>
+                            <div class="font-bold">Menos Trabajo</div>
+                        </div>
+                        <div class="bg-white/20 rounded-lg p-4">
+                            <div class="text-4xl mb-2">🏆</div>
+                            <div class="font-bold">Mejores Rankings</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 bg-blue-900/30 border-2 border-blue-400/50 rounded-xl p-6 text-center">
+                    <p class="text-xl text-blue-100">
+                        💬 <strong>¿Preguntas?</strong> Este es el momento. Si algo no quedó claro, pregúntalo ahora.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Navigation -->
+    <div class="fixed bottom-8 left-1/2 transform -translate-x-1/2 flex items-center space-x-6 z-50">
+        <button onclick="previousSlide()" id="prevBtn" class="bg-blue-900/80 backdrop-blur-sm text-white p-4 rounded-full hover:bg-blue-800 transition-all shadow-lg">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+        </button>
+        
+        <div class="bg-blue-900/80 backdrop-blur-sm px-6 py-3 rounded-full text-white font-semibold shadow-lg">
+            <span id="currentSlideNum">1</span> / <span id="totalSlides">12</span>
+        </div>
+        
+        <button onclick="nextSlide()" id="nextBtn" class="bg-blue-900/80 backdrop-blur-sm text-white p-4 rounded-full hover:bg-blue-800 transition-all shadow-lg">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+        </button>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 12;
+
+        function updateSlideDisplay() {
+            document.querySelectorAll('.slide').forEach(slide => {
+                slide.classList.remove('active');
+            });
+            
+            document.getElementById(`slide${currentSlide}`).classList.add('active');
+            
+            document.getElementById('currentSlideNum').textContent = currentSlide;
+            document.getElementById('slideCounter').textContent = `${currentSlide} / ${totalSlides}`;
+            
+            const progress = (currentSlide / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+            
+            document.getElementById('prevBtn').disabled = currentSlide === 1;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                updateSlideDisplay();
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                updateSlideDisplay();
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') previousSlide();
+        });
+
+        updateSlideDisplay();
+    </script>
+</body>
+</html>
